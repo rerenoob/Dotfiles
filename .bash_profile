@@ -1,4 +1,3 @@
-/Users/duongpham/LiveOverflow/matrix $USER
 echo "Follow the rabbit"
 
 # Setting PATH for Python 3.7
