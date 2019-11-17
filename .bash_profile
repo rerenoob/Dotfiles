@@ -6,7 +6,6 @@ PATH="/Library/Frameworks/Python.framework/Versions/3.7/bin:${PATH}"
 export PATH
 
 # set up environment variable
-export VENV=~/Projects/python/pyramid_tutorial/env
 export FZF_DEFAULT_OPTS='--height=70% --preview="cat {}" --preview-window=right:60%:wrap'
 export FZF_DEFAULT_COMMAND='rg --files'
 export FZF_CTRL_T_COMMAND='$FZF_DEFAULT_COMMAND'
