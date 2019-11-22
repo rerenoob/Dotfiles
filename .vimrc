@@ -10,9 +10,21 @@ if empty(glob('~/.vim/autoload/plug.vim'))
     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
+
 " set up vimwiki
-let g:vimwiki_list = [{'path': '~/vimwiki/',
+set nocompatible
+filetype plugin indent on
+syntax on
+let g:vimwiki_list = [{'path': '~/Documents/Notes/',
                       \ 'syntax': 'markdown', 'ext': '.md'}]
+
+" limit ALE to only OmniSharp
+let g:ale_linters = {
+\ 'cs': ['OmniSharp']
+\}
+
+let g:OmniSharp_server_stdio = 1
+let g:OmniSharp_server_use_mono = 1
 
 call plug#begin()
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
@@ -26,4 +38,5 @@ Plug 'dense-analysis/ale'
 Plug 'jiangmiao/auto-pairs'
 Plug 'vim-airline/vim-airline'
 Plug 'vimwiki/vimwiki'
+Plug 'OmniSharp/omnisharp-vim'
 call plug#end()
