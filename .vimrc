@@ -14,6 +14,14 @@ endif
 let g:vimwiki_list = [{'path': '~/vimwiki/',
                       \ 'syntax': 'markdown', 'ext': '.md'}]
 
+" limit ALE to only OmniSharp
+let g:ale_linters = {
+\ 'cs': ['OmniSharp']
+\}
+
+let g:OmniSharp_server_stdio = 1
+let g:OmniSharp_server_use_mono = 1
+
 call plug#begin()
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' } 
@@ -26,4 +34,7 @@ Plug 'dense-analysis/ale'
 Plug 'jiangmiao/auto-pairs'
 Plug 'vim-airline/vim-airline'
 Plug 'vimwiki/vimwiki'
+Plug 'OmniSharp/omnisharp-vim'
+Plug 'yuttie/comfortable-motion.vim'
+Plug 'pangloss/vim-javascript'
 call plug#end()
