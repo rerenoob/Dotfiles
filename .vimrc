@@ -10,8 +10,12 @@ if empty(glob('~/.vim/autoload/plug.vim'))
     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
+
 " set up vimwiki
-let g:vimwiki_list = [{'path': '~/vimwiki/',
+set nocompatible
+filetype plugin indent on
+syntax on
+let g:vimwiki_list = [{'path': '~/Documents/Notes/',
                       \ 'syntax': 'markdown', 'ext': '.md'}]
 
 " limit ALE to only OmniSharp
