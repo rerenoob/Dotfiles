@@ -15,6 +15,12 @@ export FZF_CTRL_T_COMMAND='$FZF_DEFAULT_COMMAND'
 alias python='python3'
 alias lsa='ls -la'
 
+# Git shortcuts
+alias gbr='git checkout --track $(git branch -a | fzf)'
+alias glg='git log --graph --oneline --decorate --all'
+alias gld='git log --pretty=format:"%h %ad %s" --date=short --all'
+glf() { git log --all --grep="$1"; }
+
 # Git branch in prompt.
 parse_git_branch() {
   git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ [\1]/'
