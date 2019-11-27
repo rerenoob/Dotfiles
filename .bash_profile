@@ -4,6 +4,7 @@ echo "Follow the rabbit"
 # The original version is saved in .bash_profile.pysave
 PATH="/Library/Frameworks/Python.framework/Versions/3.7/bin:${PATH}"
 export PATH
+export CLICOLOR=1
 
 # set up environment variable
 export FZF_DEFAULT_OPTS='--height=70% --preview="cat {}" --preview-window=right:60%:wrap'
@@ -20,7 +21,7 @@ parse_git_branch() {
 }
 
 # Set the prompt
-export PS1="\[\033[33m\]\d - \[\033[1;33m\]\t \[\033[93m\]@ \[\033[1;93m\]\w\[\033[32m\]\$(parse_git_branch)\[\033[00m\]\n☀️  "
+export PS1="\[\033[33m\]\d - \[\033[1;33m\]\t \[\033[93m\]@ \[\033[1;94m\]\w\[\033[32m\]\$(parse_git_branch)\[\033[00m\]\n☀️  "
 
 # Call .bashrc
 if [ -f ~/.bashrc ]; then

@@ -39,4 +39,6 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'vim-airline/vim-airline'
 Plug 'vimwiki/vimwiki'
 Plug 'OmniSharp/omnisharp-vim'
+Plug 'yuttie/comfortable-motion.vim'
+Plug 'pangloss/vim-javascript'
 call plug#end()
