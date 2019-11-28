@@ -1,6 +1,7 @@
 # Set default python alisa to be python 3
 alias python='python3'
 alias lsa='ls -la'
+alias vi='nvim'
 
 # Git shortcuts
 alias gbr='git checkout --track $(git branch -a | fzf)'
