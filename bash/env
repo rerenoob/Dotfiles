@@ -11,10 +11,6 @@ export FZF_DEFAULT_OPTS='--height=70% --preview="cat {}" --preview-window=right:
 export FZF_DEFAULT_COMMAND='rg --files'
 export FZF_CTRL_T_COMMAND='$FZF_DEFAULT_COMMAND'
 
-# Set default python alisa to be python 3
-alias python='python3'
-alias lsa='ls -la'
-
 # Git branch in prompt.
 parse_git_branch() {
   git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ [\1]/'
@@ -23,7 +19,3 @@ parse_git_branch() {
 # Set the prompt
 export PS1="\[\033[33m\]\d - \[\033[1;33m\]\t \[\033[93m\]@ \[\033[1;94m\]\w\[\033[32m\]\$(parse_git_branch)\[\033[00m\]\n☀️  "
 
-# Call .bashrc
-if [ -f ~/.bashrc ]; then
-   source ~/.bashrc
-fi
