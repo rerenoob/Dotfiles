@@ -1,4 +1,4 @@
-set number
+jset number
 syntax on
 set autoindent
 set tabstop=8 softtabstop=0 expandtab shiftwidth=4 smarttab
@@ -25,6 +25,10 @@ let g:ale_linters = {
 
 let g:OmniSharp_server_stdio = 1
 let g:OmniSharp_server_use_mono = 1
+
+" remap keys
+:nnoremap j gj
+:nnoremap k gk
 
 call plug#begin()
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
