@@ -8,6 +8,9 @@ alias gbr='git checkout --track $(git branch -a | fzf)'
 alias glg='git log --graph --oneline --decorate --all'
 alias gld='git log --pretty=format:"%h %ad %s" --date=short --all'
 glf() { git log --all --grep="$1"; }
+alias gs='git status'
+alias gd='git diff'
+alias ga='git add'
 
 # System monitoring
 alias sysinfo='top -o cpu -O +rsize -s 5 -n 20 -stats pid,command,cpu,th,pstate,time'
