@@ -46,4 +46,5 @@ Plug 'OmniSharp/omnisharp-vim'
 Plug 'yuttie/comfortable-motion.vim'
 Plug 'pangloss/vim-javascript'
 Plug 'maxmellon/vim-jsx-pretty'
+Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
 call plug#end()
