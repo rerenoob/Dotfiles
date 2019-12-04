@@ -11,6 +11,7 @@ glf() { git log --all --grep="$1"; }
 alias gs='git status'
 alias gd='git diff'
 alias ga='git add'
+alias gcm='git commit -m'
 
 # System monitoring
 alias sysinfo='top -o cpu -O +rsize -s 5 -n 20 -stats pid,command,cpu,th,pstate,time'
