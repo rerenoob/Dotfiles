@@ -47,4 +47,6 @@ Plug 'yuttie/comfortable-motion.vim'
 Plug 'pangloss/vim-javascript'
 Plug 'maxmellon/vim-jsx-pretty'
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
+Plug 'mattn/calendar-vim'
+Plug 'enricobacis/vim-airline-clock'
 call plug#end()
