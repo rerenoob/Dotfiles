@@ -10,7 +10,7 @@ alias gld='git log --pretty=format:"%h %ad %s" --date=short --all'
 glf() { git log --all --grep="$1"; }
 
 # System monitoring
-alias sysinfo='top -o cpu -O +rsize -s 5 -n 20 -stats pid,command,cpu,th,pstate,time'
+alias sysinfo='top -o cpu -O +rsize -s 5 -n 20 -stats pid,command,cpu,mem,th,pstate,time'
 
 # Speed test
 alias speedtest='curl -o /dev/null http://speedtest.wdc01.softlayer.com/downloads/test10.zip'
