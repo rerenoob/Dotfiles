@@ -54,4 +54,6 @@ Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
 Plug 'mattn/calendar-vim'
 Plug 'enricobacis/vim-airline-clock'
 Plug 'AlessandroYorba/Alduin'
+Plug 'rafi/awesome-vim-colorschemes'
+Plug 'rainglow/vim'
 call plug#end()
