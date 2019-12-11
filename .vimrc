@@ -11,6 +11,10 @@ if empty(glob('~/.vim/autoload/plug.vim'))
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
+" color scheme
+let g:alduin_Shout_Dragon_Aspect = 1
+colorscheme alduin 
+
 " set up vimwiki
 set nocompatible
 filetype plugin indent on
@@ -49,4 +53,5 @@ Plug 'maxmellon/vim-jsx-pretty'
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
 Plug 'mattn/calendar-vim'
 Plug 'enricobacis/vim-airline-clock'
+Plug 'AlessandroYorba/Alduin'
 call plug#end()
