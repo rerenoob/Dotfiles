@@ -12,6 +12,7 @@ alias gs='git status'
 alias gd='git diff'
 alias ga='git add'
 alias gcm='git commit -m'
+alias gco='git checkout'
 
 # System monitoring
 alias sysinfo='top -o cpu -O +rsize -s 5 -n 20 -stats pid,command,cpu,mem,th,pstate,time'
