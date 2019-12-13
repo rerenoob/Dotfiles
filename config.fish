@@ -73,3 +73,11 @@ set -g theme_newline_prompt '☀️ '
 # virtualfish
 eval (python -m virtualfish)
 eval (python -m virtualfish compat_aliases)
+
+# function
+
+# CD and LSA
+function cl
+    cd $argv
+    lsa
+end
