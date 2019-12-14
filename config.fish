@@ -77,9 +77,11 @@ eval (python -m virtualfish compat_aliases)
 
 # greeting override
 function fish_greeting
+    clear
     echo "Be like water, "$USER 
     set_color $fish_color_autosuggestion
     echo "The key to immortality is first living a life worth remembering."
+    echo ""
     set_color normal
 end
 
