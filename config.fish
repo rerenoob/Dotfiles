@@ -21,8 +21,6 @@ alias sysinfo='top -o cpu -O +rsize -s 5 -n 20 -stats pid,command,cpu,mem,th,pst
 alias speedtest='curl -o /dev/null http://speedtest.wdc01.softlayer.com/downloads/test10.zip'
 
 
-echo "Follow the rabbit"
-
 # Setting PATH for Python 3.7
 export PATH
 export CLICOLOR=1
@@ -49,7 +47,7 @@ set -g theme_use_abbreviated_branch_name yes
 set -g theme_display_virtualenv yes
 # set -g theme_display_ruby no
 # set -g theme_display_nvm yes
-# set -g theme_display_user ssh
+set -g theme_display_user ssh
 # set -g theme_display_hostname ssh
 # set -g theme_display_vi no
 set -g theme_display_date yes
@@ -76,6 +74,14 @@ eval (python -m virtualfish)
 eval (python -m virtualfish compat_aliases)
 
 # function
+
+# greeting override
+function fish_greeting
+    echo "Be like water, "$USER 
+    set_color $fish_color_autosuggestion
+    echo "The key to immortality is first living a life worth remembering."
+    set_color normal
+end
 
 # CD and LSA
 function cl
