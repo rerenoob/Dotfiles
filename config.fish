@@ -1,7 +1,14 @@
-# Set default python alisa to be python 3
+# Set default alias 
 alias python='python3'
 alias lsa='ls -la'
 alias vi='nvim'
+
+# directory shortcuts
+alias home='cd ~'
+alias doc='cd ~/Documents'
+alias download='cd ~/Downloads'
+alias music='cd ~/Music'
+alias project='cd ~/Projects'
 
 # Git shortcuts
 # alias gbr='git checkout --track $(git branch -a | fzf)'
