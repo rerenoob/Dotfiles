@@ -4,11 +4,11 @@ alias lsa='ls -la'
 alias vi='nvim'
 
 # directory shortcuts
-alias home='cd ~'
-alias doc='cd ~/Documents'
-alias download='cd ~/Downloads'
-alias music='cd ~/Music'
-alias project='cd ~/Projects'
+alias home='cl ~'
+alias doc='cl ~/Documents'
+alias download='cl ~/Downloads'
+alias music='cl ~/Music'
+alias project='cl ~/Projects'
 
 # Git shortcuts
 # alias gbr='git checkout --track $(git branch -a | fzf)'
