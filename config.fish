@@ -97,3 +97,24 @@ function cl
     cd $argv
     lsa
 end
+
+# play focus music with afplay
+function pid_for_name
+    ps -A | grep $argv | awk '{print $1}'
+end
+
+function pause_af
+    kill -17 (pid_for_name afplay)
+end
+
+function resume_af
+    kill -19 (pid_for_name afplay)
+end
+
+function stop_af
+    killall afplay
+end
+
+function focus
+    afplay ~/Music/focus.mp3 &
+end
