@@ -12,8 +12,7 @@ if empty(glob('~/.vim/autoload/plug.vim'))
 endif
 
 " color scheme
-let g:alduin_Shout_Dragon_Aspect = 1
-colorscheme alduin 
+colorscheme hive 
 
 " set up vimwiki
 set nocompatible
