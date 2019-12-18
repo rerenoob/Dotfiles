@@ -9,6 +9,7 @@ alias doc='cl ~/Documents'
 alias download='cl ~/Downloads'
 alias music='cl ~/Music'
 alias project='cl ~/Projects'
+alias dotfile='cl ~/Dotfiles'
 
 # Git shortcuts
 # alias gbr='git checkout --track $(git branch -a | fzf)'
@@ -86,8 +87,10 @@ eval (python -m virtualfish compat_aliases)
 function fish_greeting
     clear
     echo "Be like water, "$USER 
+    echo ""
     set_color $fish_color_autosuggestion
-    echo "The key to immortality is first living a life worth remembering."
+    # echo "The key to immortality is first living a life worth remembering."
+    python quoteoftheday.py
     echo ""
     set_color normal
 end
