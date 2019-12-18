@@ -90,7 +90,7 @@ function fish_greeting
     echo ""
     set_color $fish_color_autosuggestion
     # echo "The key to immortality is first living a life worth remembering."
-    python quoteoftheday.py
+    python ~/Dotfiles/quoteoftheday.py
     echo ""
     set_color normal
 end
