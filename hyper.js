@@ -12,7 +12,7 @@ module.exports = {
     fontSize: 12,
 
     // font family with optional fallbacks
-    fontFamily: 'Menlo, "DejaVu Sans Mono", Consolas, "Lucida Console", monospace',
+    fontFamily: 'Nerd, "Hack Nerd Font", Consolas, "Lucida Console", monospace',
 
     // default font weight: 'normal' or 'bold'
     fontWeight: 'normal',
@@ -146,7 +146,7 @@ module.exports = {
   //   `hyperpower`
   //   `@company/project`
   //   `project#1.0.1`
-  plugins: [],
+  plugins: ["hyperpower", "hyper-pane", "hyper-night-owl"],
 
   // in development, you can create a directory under
   // `~/.hyper_plugins/local/` and include it here
@@ -154,7 +154,56 @@ module.exports = {
   localPlugins: [],
 
   keymaps: {
-    // Example
-    // 'window:devtools': 'cmd+alt+o',
+      "window:devtools": "command+alt+i",
+      "window:reload": "command+shift+r",
+      "window:reloadFull": "command+shift+f5",
+      "window:preferences": "command+,",
+      "zoom:reset": "command+0",
+      "zoom:in": [
+          "command+plus",
+          "command+="
+      ],
+      "zoom:out": "command+-",
+      "window:new": "command+n",
+      "window:minimize": "command+m",
+      "window:zoom": "ctrl+alt+command+m",
+      "window:toggleFullScreen": "command+ctrl+f",
+      "window:close": "command+shift+w",
+      "tab:new": "command+t",
+      "tab:next": [
+          "command+shift+]",
+          "command+shift+right",
+          "command+alt+right",
+          "ctrl+tab"
+      ],
+      "tab:prev": [
+          "command+shift+[",
+          "command+shift+left",
+          "command+alt+left",
+          "ctrl+shift+tab"
+      ],
+      "tab:jump:prefix": "command",
+      "pane:next": "command+j",
+      "pane:prev": "command+k",
+      "pane:splitVertical": "command+d",
+      "pane:splitHorizontal": "command+shift+d",
+      "pane:close": "command+w",
+      "editor:undo": "command+z",
+      "editor:redo": "command+y",
+      "editor:cut": "command+x",
+      "editor:copy": "command+c",
+      "editor:paste": "command+v",
+      "editor:selectAll": "command+a",
+      "editor:movePreviousWord": "alt+left",
+      "editor:moveNextWord": "alt+right",
+      "editor:moveBeginningLine": "command+left",
+      "editor:moveEndLine": "command+right",
+      "editor:deletePreviousWord": "alt+backspace",
+      "editor:deleteNextWord": "alt+delete",
+      "editor:deleteBeginningLine": "command+backspace",
+      "editor:deleteEndLine": "command+delete",
+      "editor:clearBuffer": "command+k",
+      "editor:break": "ctrl+c",
+      "plugins:update": "command+shift+u"
   },
 };
