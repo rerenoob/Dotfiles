@@ -1,4 +1,4 @@
-jset number
+set number
 syntax on
 set autoindent
 set tabstop=8 softtabstop=0 expandtab shiftwidth=4 smarttab
@@ -10,6 +10,9 @@ if empty(glob('~/.vim/autoload/plug.vim'))
     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
+
+" color scheme
+colorscheme hive 
 
 " set up vimwiki
 set nocompatible
@@ -25,6 +28,7 @@ let g:ale_linters = {
 
 let g:OmniSharp_server_stdio = 1
 let g:OmniSharp_server_use_mono = 1
+let g:python_host_prog = '/usr/local/bin/python'
 
 " remap keys
 :nnoremap j gj
@@ -45,4 +49,11 @@ Plug 'vimwiki/vimwiki'
 Plug 'OmniSharp/omnisharp-vim'
 Plug 'yuttie/comfortable-motion.vim'
 Plug 'pangloss/vim-javascript'
+Plug 'maxmellon/vim-jsx-pretty'
+Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
+Plug 'mattn/calendar-vim'
+Plug 'enricobacis/vim-airline-clock'
+Plug 'AlessandroYorba/Alduin'
+Plug 'rafi/awesome-vim-colorschemes'
+Plug 'rainglow/vim'
 call plug#end()
