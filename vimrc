@@ -17,7 +17,6 @@ colorscheme hive
 " set up vimwiki
 set nocompatible
 filetype plugin indent on
-syntax on
 let g:vimwiki_list = [{'path': '~/Documents/Notes/',
                       \ 'syntax': 'markdown', 'ext': '.md'}]
 
@@ -29,6 +28,7 @@ let g:ale_linters = {
 let g:OmniSharp_server_stdio = 1
 let g:OmniSharp_server_use_mono = 1
 let g:python_host_prog = '/usr/local/bin/python'
+let g:python3_host_prog = '/usr/local/bin/python3'
 
 " remap keys
 :nnoremap j gj
@@ -56,4 +56,5 @@ Plug 'enricobacis/vim-airline-clock'
 Plug 'AlessandroYorba/Alduin'
 Plug 'rafi/awesome-vim-colorschemes'
 Plug 'rainglow/vim'
+Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
 call plug#end()
