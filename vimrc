@@ -33,6 +33,7 @@ let g:python3_host_prog = '/usr/local/bin/python3'
 " remap keys
 :nnoremap j gj
 :nnoremap k gk
+:nnoremap <esc> :noh<return><esc>
 
 call plug#begin()
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
