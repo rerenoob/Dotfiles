@@ -58,4 +58,5 @@ Plug 'AlessandroYorba/Alduin'
 Plug 'rafi/awesome-vim-colorschemes'
 Plug 'rainglow/vim'
 Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
+Plug 'airblade/vim-gitgutter'
 call plug#end()
