@@ -12,7 +12,7 @@ alias project='cl ~/Projects'
 alias dotfile='cl ~/Dotfiles'
 
 # Git shortcuts
-# alias gbr='git checkout --track $(git branch -a | fzf)'
+alias gbr='git checkout --track (git branch -a | fzf)'
 alias glg='git log --graph --oneline --decorate --all'
 alias gld='git log --pretty=format:"%h %ad %s" --date=short --all'
 # glf() { git log --all --grep="$1"; }
@@ -36,7 +36,7 @@ export CLICOLOR=1
 # set up environment variable
 export FZF_DEFAULT_OPTS='--height=70% --preview="cat {}" --preview-window=right:60%:wrap'
 export FZF_DEFAULT_COMMAND='rg --files'
-export FZF_CTRL_T_COMMAND='$FZF_DEFAULT_COMMAND'
+export FZF_CTRL_T_COMMAND='rg --files'
 
 # bobthefish overrides
 set -g theme_display_git yes 
