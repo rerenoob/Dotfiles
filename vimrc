@@ -11,9 +11,6 @@ if empty(glob('~/.vim/autoload/plug.vim'))
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
-" color scheme
-colorscheme hive 
-
 " set up vimwiki
 set nocompatible
 filetype plugin indent on
@@ -25,8 +22,11 @@ let g:ale_linters = {
 \ 'cs': ['OmniSharp']
 \}
 
+" C# stuffs
 let g:OmniSharp_server_stdio = 1
 let g:OmniSharp_server_use_mono = 1
+
+" Python settings for virtualenv
 let g:python_host_prog = '/usr/local/bin/python'
 let g:python3_host_prog = '/usr/local/bin/python3'
 
@@ -54,9 +54,7 @@ Plug 'maxmellon/vim-jsx-pretty'
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
 Plug 'mattn/calendar-vim'
 Plug 'enricobacis/vim-airline-clock'
-Plug 'AlessandroYorba/Alduin'
-Plug 'rafi/awesome-vim-colorschemes'
-Plug 'rainglow/vim'
 Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
 Plug 'airblade/vim-gitgutter'
+Plug 'OrangeT/vim-csharp'
 call plug#end()
