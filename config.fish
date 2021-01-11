@@ -121,3 +121,14 @@ end
 function focus
     afplay ~/Music/focus.mp3 &
 end
+
+function note
+    cd ~/Documents/Notes
+    vi test
+end
+
+function push_note
+    ga .
+    gcm "Add diary entry for "(date +%x)
+    git push
+end
