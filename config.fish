@@ -123,11 +123,11 @@ function focus
 end
 
 function note
-    cd ~/Documents/Notes
-    vi test
+    vi ~/Documents/Notes/diary/(date +"%Y-%m-%d").md
 end
 
 function push_note
+    cd ~/Documents/Notes
     ga .
     gcm "Add diary entry for "(date +%x)
     git push
