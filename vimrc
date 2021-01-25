@@ -3,6 +3,9 @@ syntax on
 set autoindent
 set tabstop=8 softtabstop=0 expandtab shiftwidth=4 smarttab
 set clipboard=unnamed
+set tw=80
+set formatoptions+=t
+set formatoptions-=l
 
 " automatically install vim-plug if not already installed
 if empty(glob('~/.vim/autoload/plug.vim'))
