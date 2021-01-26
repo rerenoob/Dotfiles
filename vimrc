@@ -6,6 +6,7 @@ set clipboard=unnamed
 set tw=80
 set formatoptions+=t
 set formatoptions-=l
+autocmd FileType md,markdown setlocal spell spelllang=en_us
 
 " automatically install vim-plug if not already installed
 if empty(glob('~/.vim/autoload/plug.vim'))
