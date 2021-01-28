@@ -124,6 +124,8 @@ function focus
 end
 
 function note
+    cd ~/Documents/Notes
+    git pull
     vi ~/Documents/Notes/diary/(date +"%Y-%m-%d").md
 end
 
