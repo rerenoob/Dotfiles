@@ -11,6 +11,7 @@ alias music='cl ~/Music'
 alias project='cl ~/Projects'
 alias dotfile='cl ~/Dotfiles'
 alias notes='cl ~/Documents/Notes'
+alias readings='cl ~/Documents/readings'
 
 # Git shortcuts
 alias gbr='git checkout --track (git branch -a | fzf)'
