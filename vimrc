@@ -1,4 +1,3 @@
-set relativenumber
 set nu
 syntax on
 set autoindent
