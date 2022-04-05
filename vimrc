@@ -36,8 +36,6 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-commentary'
-" Plug 'tpope/vim-surround'
-" Plug 'jiangmiao/auto-pairs'
 Plug 'vim-airline/vim-airline'
 Plug 'vimwiki/vimwiki'
 Plug 'yuttie/comfortable-motion.vim'
@@ -45,4 +43,5 @@ Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
 Plug 'mattn/calendar-vim'
 Plug 'enricobacis/vim-airline-clock'
 Plug 'airblade/vim-gitgutter'
+Plug 'github/copilot.vim'
 call plug#end()

@@ -140,3 +140,16 @@ function readings
     cd ~/Documents/readings
     git pull
 end
+
+function mo_diary
+    cd ~/Documents/ToMyLittleMan-Alan
+    git pull
+    vi diary.md
+end
+
+function mo_push_diary
+    cd ~/Documents/ToMyLittleMan-Alan
+    ga .
+    gcm "Update diary"
+    git push
+end
