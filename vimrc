@@ -86,9 +86,6 @@ Plug 'mattn/calendar-vim'
 
 " Status line enhancements
 Plug 'enricobacis/vim-airline-clock'
-
-" AI assistance
-Plug 'github/copilot.vim'
 call plug#end()
 
 " Plugin configurations
