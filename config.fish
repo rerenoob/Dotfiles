@@ -2,6 +2,7 @@
 alias python='python3'
 alias lsa='ls -la'
 alias vi='nvim'
+alias chat='~/chat.sh'
 
 # directory shortcuts
 alias home='cl ~'
@@ -27,7 +28,7 @@ alias gco='git checkout'
 alias sysinfo='top -o cpu -O +rsize -s 5 -n 20 -stats pid,command,cpu,mem,th,pstate,time'
 
 # Speed test
-alias speedtest='curl -o /dev/null http://speedtest.wdc01.softlayer.com/downloads/test10.zip'
+alias speedtest='curl -o /dev/null -s -w \"Download speed: %{speed_download} bytes/sec\\n\" http://speedtest.wdc01.softlayer.com/downloads/test10.zip'\n\n# Additional Fish-specific improvements\nalias grep='grep --color=auto'\nalias ll='ls -alF'\nalias la='ls -A'\nalias l='ls -CF'
 
 
 # Setting PATH for Python 3.7
@@ -120,36 +121,108 @@ function stop_af
 end
 
 function focus
-    afplay ~/Music/focus.mp3 &
+    if test -f ~/Music/focus.mp3
+        afplay ~/Music/focus.mp3 &
+        echo "🎵 Focus music started"
+    else
+        echo "❌ Focus music file not found at ~/Music/focus.mp3"
+        return 1
+    end
 end
 
 function note
+    if not test -d ~/Documents/Notes
+        echo "Error: Notes directory does not exist"
+        return 1
+    end
+    
     cd ~/Documents/Notes
-    git pull
-    vi ~/Documents/Notes/diary/(date +"%Y-%m-%d").md
+    if git pull
+        set diary_file ~/Documents/Notes/diary/(date +"%Y-%m-%d").md
+        mkdir -p (dirname $diary_file)
+        vi $diary_file
+    else
+        echo "Error: Failed to pull latest changes"
+        return 1
+    end
 end
 
 function push_note
+    if not test -d ~/Documents/Notes
+        echo "Error: Notes directory does not exist"
+        return 1
+    end
+    
     cd ~/Documents/Notes
-    ga .
-    gcm "Add diary entry for "(date +%x)
-    git push
+    if git status --porcelain | grep -q .
+        ga .
+        if gcm "Add diary entry for "(date +%x)
+            if git push
+                echo "✅ Notes pushed successfully"
+            else
+                echo "❌ Failed to push to remote"
+                return 1
+            end
+        else
+            echo "❌ Failed to commit changes"
+            return 1
+        end
+    else
+        echo "ℹ️  No changes to push"
+    end
 end
 
 function readings
+    if not test -d ~/Documents/readings
+        echo "Error: Readings directory does not exist"
+        return 1
+    end
+    
     cd ~/Documents/readings
-    git pull
+    if git pull
+        echo "✅ Readings updated successfully"
+    else
+        echo "❌ Failed to pull readings"
+        return 1
+    end
 end
 
 function mo_diary
+    if not test -d ~/Documents/ToMyLittleMan-Alan
+        echo "Error: Personal diary directory does not exist"
+        return 1
+    end
+    
     cd ~/Documents/ToMyLittleMan-Alan
-    git pull
-    vi diary.md
+    if git pull
+        vi diary.md
+    else
+        echo "Error: Failed to pull latest changes"
+        return 1
+    end
 end
 
 function mo_push_diary
+    if not test -d ~/Documents/ToMyLittleMan-Alan
+        echo "Error: Personal diary directory does not exist"
+        return 1
+    end
+    
     cd ~/Documents/ToMyLittleMan-Alan
-    ga .
-    gcm "Update diary"
-    git push
+    if git status --porcelain | grep -q .
+        ga .
+        if gcm "Update diary"
+            if git push
+                echo "✅ Personal diary pushed successfully"
+            else
+                echo "❌ Failed to push to remote"
+                return 1
+            end
+        else
+            echo "❌ Failed to commit changes"
+            return 1
+        end
+    else
+        echo "ℹ️  No changes to push"
+    end
 end

@@ -1,4 +1,4 @@
-# Set default python alisa to be python 3
+# Set default python alias to be python 3
 alias python='python3'
 alias lsa='ls -la'
 alias vi='nvim'
@@ -9,6 +9,8 @@ alias doc='cd ~/Documents'
 alias download='cd ~/Downloads'
 alias music='cd ~/Music'
 alias project='cd ~/Projects'
+alias dotfile='cd ~/Dotfiles'
+alias notes='cd ~/Documents/Notes'
 
 # Git shortcuts
 alias gbr='git checkout --track $(git branch -a | fzf)'
@@ -19,9 +21,18 @@ alias gs='git status'
 alias gd='git diff'
 alias ga='git add'
 alias gcm='git commit -m'
+alias gco='git checkout'
 
 # System monitoring
 alias sysinfo='top -o cpu -O +rsize -s 5 -n 20 -stats pid,command,cpu,mem,th,pstate,time'
 
 # Speed test
-alias speedtest='curl -o /dev/null http://speedtest.wdc01.softlayer.com/downloads/test10.zip'
+alias speedtest='curl -o /dev/null -s -w "Download speed: %{speed_download} bytes/sec\n" http://speedtest.wdc01.softlayer.com/downloads/test10.zip'
+
+# Additional utilities
+alias grep='grep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias egrep='egrep --color=auto'
+alias ll='ls -alF'
+alias la='ls -A'
+alias l='ls -CF'
