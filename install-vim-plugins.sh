@@ -73,86 +73,48 @@ install_plugins() {
     log_info "Installing $VIM_NAME plugins..."
     log_info "This may take a few minutes..."
     
-    # Create a temporary vim script to install plugins
-    local temp_script=$(mktemp)
-    cat > "$temp_script" << 'EOF'
-" Suppress all output except errors
-set nomore
-set shortmess+=I
-set cmdheight=2
-
-" Install plugins
-PlugInstall --sync
-
-" Quit all windows
-qall!
-EOF
-    
-    # Run the installation
-    if $VIM_CMD -u "$HOME/.vimrc" -s "$temp_script" &> /dev/null; then
+    # Use direct command execution instead of script file
+    if timeout 300 $VIM_CMD -u "$HOME/.vimrc" \
+        -c "set nomore" \
+        -c "set shortmess+=I" \
+        -c "PlugInstall --sync" \
+        -c "qall!" > /dev/null 2>&1; then
         log_success "All plugins installed successfully!"
     else
         log_warning "Plugin installation completed, but there may have been some issues"
         log_info "You can run ':PlugInstall' manually in $VIM_NAME to check for any problems"
     fi
-    
-    # Clean up
-    rm -f "$temp_script"
 }
 
 # Update existing plugins
 update_plugins() {
     log_info "Updating existing plugins..."
     
-    local temp_script=$(mktemp)
-    cat > "$temp_script" << 'EOF'
-" Suppress all output except errors
-set nomore
-set shortmess+=I
-set cmdheight=2
-
-" Update plugins
-PlugUpdate --sync
-
-" Quit all windows
-qall!
-EOF
-    
-    if $VIM_CMD -u "$HOME/.vimrc" -s "$temp_script" &> /dev/null; then
+    if timeout 300 $VIM_CMD -u "$HOME/.vimrc" \
+        -c "set nomore" \
+        -c "set shortmess+=I" \
+        -c "PlugUpdate --sync" \
+        -c "qall!" > /dev/null 2>&1; then
         log_success "All plugins updated successfully!"
     else
         log_warning "Plugin update completed, but there may have been some issues"
         log_info "You can run ':PlugUpdate' manually in $VIM_NAME to check for any problems"
     fi
-    
-    rm -f "$temp_script"
 }
 
 # Clean unused plugins
 clean_plugins() {
     log_info "Cleaning unused plugins..."
     
-    local temp_script=$(mktemp)
-    cat > "$temp_script" << 'EOF'
-" Suppress all output except errors
-set nomore
-set shortmess+=I
-set cmdheight=2
-
-" Clean unused plugins
-PlugClean!
-
-" Quit all windows
-qall!
-EOF
-    
-    if $VIM_CMD -u "$HOME/.vimrc" -s "$temp_script" &> /dev/null; then
+    if timeout 300 $VIM_CMD -u "$HOME/.vimrc" \
+        -c "set nomore" \
+        -c "set shortmess+=I" \
+        -c "PlugClean!" \
+        -c "qall!" > /dev/null 2>&1; then
         log_success "Plugin cleanup completed!"
     else
         log_info "Plugin cleanup completed"
     fi
-    
-    rm -f "$temp_script"
 }
 
 # Check plugin installation status
