@@ -3,7 +3,7 @@
 # macOS Dotfiles Installation Script
 # Installs and configures dotfiles for macOS systems
 
-set -e  # Exit on error
+# set -e  # Exit on error - commented out for graceful error handling
 
 # Colors for output
 RED='\033[0;31m'
@@ -11,6 +11,9 @@ GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
 BLUE='\033[0;34m'
 NC='\033[0m' # No Color
+
+# Array to track failed steps
+FAILED_STEPS=()
 
 # Logging functions
 log_info() {
@@ -29,6 +32,12 @@ log_error() {
     echo -e "${RED}[ERROR]${NC} $1"
 }
 
+# Function to add failed step
+add_failure() {
+    FAILED_STEPS+=("$1")
+    log_error "$1"
+}
+
 # Check if running on macOS
 check_macos() {
     if [[ "$OSTYPE" != "darwin"* ]]; then
@@ -42,8 +51,12 @@ check_macos() {
 install_homebrew() {
     if ! command -v brew &> /dev/null; then
         log_info "Installing Homebrew..."
-        /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-        log_success "Homebrew installed"
+        if /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"; then
+            log_success "Homebrew installed"
+        else
+            add_failure "Failed to install Homebrew"
+            return 1
+        fi
     else
         log_success "Homebrew already installed"
     fi
@@ -69,8 +82,11 @@ install_packages() {
             log_success "$package already installed"
         else
             log_info "Installing $package..."
-            brew install "$package"
-            log_success "$package installed"
+            if brew install "$package"; then
+                log_success "$package installed"
+            else
+                add_failure "Failed to install package: $package"
+            fi
         fi
     done
 }
@@ -84,8 +100,11 @@ install_python_packages() {
         log_success "requests already installed"
     else
         log_info "Installing requests..."
-        pip3 install --user --break-system-packages requests 2>/dev/null || pip3 install --user requests
-        log_success "requests installed"
+        if pip3 install --user --break-system-packages requests 2>/dev/null || pip3 install --user requests; then
+            log_success "requests installed"
+        else
+            add_failure "Failed to install Python package: requests"
+        fi
     fi
     
     # Install virtualfish for Fish shell
@@ -93,8 +112,11 @@ install_python_packages() {
         log_success "virtualfish already installed"
     else
         log_info "Installing virtualfish..."
-        pip3 install --user --break-system-packages virtualfish 2>/dev/null || pip3 install --user virtualfish
-        log_success "virtualfish installed"
+        if pip3 install --user --break-system-packages virtualfish 2>/dev/null || pip3 install --user virtualfish; then
+            log_success "virtualfish installed"
+        else
+            add_failure "Failed to install Python package: virtualfish"
+        fi
     fi
 }
 
@@ -102,7 +124,11 @@ install_python_packages() {
 backup_existing() {
     log_info "Backing up existing dotfiles..."
     local backup_dir="$HOME/.dotfiles-backup-$(date +%Y%m%d-%H%M%S)"
-    mkdir -p "$backup_dir"
+    
+    if ! mkdir -p "$backup_dir"; then
+        add_failure "Failed to create backup directory: $backup_dir"
+        return 1
+    fi
     
     local files_to_backup=(
         "$HOME/.vimrc"
@@ -112,15 +138,18 @@ backup_existing() {
     
     for file in "${files_to_backup[@]}"; do
         if [[ -f "$file" ]]; then
-            cp "$file" "$backup_dir/"
-            log_success "Backed up $(basename "$file")"
+            if cp "$file" "$backup_dir/"; then
+                log_success "Backed up $(basename "$file")"
+            else
+                add_failure "Failed to backup $(basename "$file")"
+            fi
         fi
     done
     
     if [[ -n "$(ls -A "$backup_dir" 2>/dev/null)" ]]; then
         log_success "Backup created at $backup_dir"
     else
-        rmdir "$backup_dir"
+        rmdir "$backup_dir" 2>/dev/null || true
         log_info "No existing dotfiles found to backup"
     fi
 }
@@ -133,27 +162,42 @@ create_symlinks() {
     
     # Vim configuration
     if [[ -f "$dotfiles_dir/vimrc" ]]; then
-        ln -sf "$dotfiles_dir/vimrc" "$HOME/.vimrc"
-        log_success "Linked .vimrc"
+        if ln -sf "$dotfiles_dir/vimrc" "$HOME/.vimrc"; then
+            log_success "Linked .vimrc"
+        else
+            add_failure "Failed to link .vimrc"
+        fi
     fi
     
     # Bash configuration
     if [[ -f "$dotfiles_dir/bashrc" ]]; then
-        ln -sf "$dotfiles_dir/bashrc" "$HOME/.bashrc"
-        log_success "Linked .bashrc"
+        if ln -sf "$dotfiles_dir/bashrc" "$HOME/.bashrc"; then
+            log_success "Linked .bashrc"
+        else
+            add_failure "Failed to link .bashrc"
+        fi
     fi
     
     # Fish configuration
-    mkdir -p "$HOME/.config/fish"
+    if ! mkdir -p "$HOME/.config/fish"; then
+        add_failure "Failed to create Fish config directory"
+        return 1
+    fi
     if [[ -f "$dotfiles_dir/config.fish" ]]; then
-        ln -sf "$dotfiles_dir/config.fish" "$HOME/.config/fish/config.fish"
-        log_success "Linked Fish config"
+        if ln -sf "$dotfiles_dir/config.fish" "$HOME/.config/fish/config.fish"; then
+            log_success "Linked Fish config"
+        else
+            add_failure "Failed to link Fish config"
+        fi
     fi
     
     # Hyper terminal configuration
     if [[ -f "$dotfiles_dir/hyper.js" ]]; then
-        ln -sf "$dotfiles_dir/hyper.js" "$HOME/.hyper.js"
-        log_success "Linked Hyper config"
+        if ln -sf "$dotfiles_dir/hyper.js" "$HOME/.hyper.js"; then
+            log_success "Linked Hyper config"
+        else
+            add_failure "Failed to link Hyper config"
+        fi
     fi
 }
 
@@ -164,29 +208,44 @@ setup_fish() {
     # Install Fisher (Fish plugin manager)
     if ! fish -c "functions -q fisher" 2>/dev/null; then
         log_info "Installing Fisher..."
-        fish -c "curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source && fisher install jorgebucaran/fisher"
-        log_success "Fisher installed"
+        if fish -c "curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source && fisher install jorgebucaran/fisher" 2>/dev/null; then
+            log_success "Fisher installed"
+        else
+            add_failure "Failed to install Fisher plugin manager"
+        fi
     else
         log_success "Fisher already installed"
     fi
     
     # Install bobthefish theme
     log_info "Installing bobthefish theme..."
-    fish -c "fisher install oh-my-fish/theme-bobthefish" 2>/dev/null || true
-    log_success "bobthefish theme installed"
+    if fish -c "fisher install oh-my-fish/theme-bobthefish" 2>/dev/null; then
+        log_success "bobthefish theme installed"
+    else
+        add_failure "Failed to install bobthefish theme"
+    fi
     
     # Set Fish as default shell
     local fish_path
-    fish_path=$(which fish)
-    if [[ "$SHELL" != "$fish_path" ]]; then
-        log_info "Setting Fish as default shell..."
-        if ! grep -q "$fish_path" /etc/shells; then
-            echo "$fish_path" | sudo tee -a /etc/shells
+    if fish_path=$(which fish); then
+        if [[ "$SHELL" != "$fish_path" ]]; then
+            log_info "Setting Fish as default shell..."
+            if ! grep -q "$fish_path" /etc/shells; then
+                if ! echo "$fish_path" | sudo tee -a /etc/shells; then
+                    add_failure "Failed to add Fish to /etc/shells"
+                    return 1
+                fi
+            fi
+            if chsh -s "$fish_path"; then
+                log_success "Fish set as default shell"
+            else
+                add_failure "Failed to set Fish as default shell"
+            fi
+        else
+            log_success "Fish already set as default shell"
         fi
-        chsh -s "$fish_path"
-        log_success "Fish set as default shell"
     else
-        log_success "Fish already set as default shell"
+        add_failure "Fish executable not found in PATH"
     fi
 }
 
@@ -197,11 +256,27 @@ setup_vim() {
     # Run the plugin installation script
     if [[ -f "$PWD/install-vim-plugins.sh" ]]; then
         log_info "Installing Vim plugins automatically..."
-        bash "$PWD/install-vim-plugins.sh" install
-        log_success "Vim plugins installed"
+        if bash "$PWD/install-vim-plugins.sh" install; then
+            log_success "Vim plugins installed"
+        else
+            add_failure "Failed to install Vim plugins automatically"
+            log_info "Attempting manual plugin installation..."
+            # Fallback: try direct vim command
+            if vim +PlugInstall +qall; then
+                log_success "Vim plugins installed via direct command"
+            else
+                add_failure "Failed to install Vim plugins - you may need to run ':PlugInstall' manually in Vim"
+            fi
+        fi
     else
         log_warning "Plugin installation script not found"
-        log_info "Run ':PlugInstall' manually in Vim to install plugins"
+        log_info "Attempting direct plugin installation..."
+        # Try direct vim command
+        if vim +PlugInstall +qall; then
+            log_success "Vim plugins installed via direct command"
+        else
+            log_warning "Direct installation failed - Run ':PlugInstall' manually in Vim to install plugins"
+        fi
     fi
     
     log_success "Vim configuration ready"
@@ -213,8 +288,11 @@ setup_fzf() {
     
     # Install FZF shell integration
     if [[ ! -f "$HOME/.fzf.bash" ]]; then
-        $(brew --prefix)/opt/fzf/install --all --no-update-rc
-        log_success "FZF shell integration installed"
+        if $(brew --prefix)/opt/fzf/install --all --no-update-rc; then
+            log_success "FZF shell integration installed"
+        else
+            add_failure "Failed to install FZF shell integration"
+        fi
     else
         log_success "FZF already configured"
     fi
@@ -233,8 +311,11 @@ create_directories() {
     
     for dir in "${directories[@]}"; do
         if [[ ! -d "$dir" ]]; then
-            mkdir -p "$dir"
-            log_success "Created directory: $dir"
+            if mkdir -p "$dir"; then
+                log_success "Created directory: $dir"
+            else
+                add_failure "Failed to create directory: $dir"
+            fi
         else
             log_success "Directory already exists: $dir"
         fi
@@ -274,22 +355,37 @@ main() {
     echo "==============================================="
     echo
     
-    check_macos
-    install_homebrew
-    install_packages
-    install_python_packages
-    backup_existing
-    create_symlinks
-    setup_fish
-    setup_vim
-    setup_fzf
-    create_directories
-    test_installation
+    check_macos || true
+    install_homebrew || true
+    install_packages || true
+    install_python_packages || true
+    backup_existing || true
+    create_symlinks || true
+    setup_fish || true
+    setup_vim || true
+    setup_fzf || true
+    create_directories || true
+    test_installation || true
     
     echo
     echo "==============================================="
-    log_success "Installation completed successfully!"
-    echo "==============================================="
+    
+    # Show summary of any failures
+    if [[ ${#FAILED_STEPS[@]} -eq 0 ]]; then
+        log_success "Installation completed successfully!"
+        echo "==============================================="
+    else
+        log_warning "Installation completed with some issues:"
+        echo "==============================================="
+        echo
+        log_error "The following steps failed:"
+        for failure in "${FAILED_STEPS[@]}"; do
+            echo "  • $failure"
+        done
+        echo
+        log_info "Despite these failures, other components may still work correctly."
+    fi
+    
     echo
     log_info "Next steps:"
     echo "1. Restart your terminal or run: source ~/.bashrc"
@@ -298,6 +394,10 @@ main() {
     echo "4. Test quote script: python3 quoteoftheday.py"
     echo
     log_info "For Fish shell features, you may need to restart your terminal."
+    
+    if [[ ${#FAILED_STEPS[@]} -gt 0 ]]; then
+        log_info "Review the failed steps above and manually address any issues."
+    fi
 }
 
 # Run main function
