@@ -28,7 +28,13 @@ alias gco='git checkout'
 alias sysinfo='top -o cpu -O +rsize -s 5 -n 20 -stats pid,command,cpu,mem,th,pstate,time'
 
 # Speed test
-alias speedtest='curl -o /dev/null -s -w \"Download speed: %{speed_download} bytes/sec\\n\" http://speedtest.wdc01.softlayer.com/downloads/test10.zip'\n\n# Additional Fish-specific improvements\nalias grep='grep --color=auto'\nalias ll='ls -alF'\nalias la='ls -A'\nalias l='ls -CF'
+alias speedtest='curl -o /dev/null -s -w "Download speed: %{speed_download} bytes/sec\n" http://speedtest.wdc01.softlayer.com/downloads/test10.zip'
+
+# Additional Fish-specific improvements
+alias grep='grep --color=auto'
+alias ll='ls -alF'
+alias la='ls -A'
+alias l='ls -CF'
 
 
 # Setting PATH for Python 3.7
@@ -69,7 +75,7 @@ set -g theme_title_display_user yes
 set -g theme_date_format "+%a-%d/%m %H:%M"
 set -g theme_avoid_ambiguous_glyphs yes
 set -g theme_powerline_fonts yes 
-set -g theme_nerd_fonts yes
+set -g theme_nerd_fonts no
 # set -g theme_show_exit_status yes
 # set -g theme_display_jobs_verbose yes
 # set -g default_user your_normal_user
@@ -79,9 +85,9 @@ set -g fish_prompt_pwd_dir_length 0
 set -g theme_newline_cursor yes
 set -g theme_newline_prompt '☀️ '
 
-# virtualfish
-eval (python -m virtualfish)
-eval (python -m virtualfish compat_aliases)
+# virtualfish (commented out - not installed)
+# eval (python -m virtualfish)
+# eval (python -m virtualfish compat_aliases)
 
 # function
 
