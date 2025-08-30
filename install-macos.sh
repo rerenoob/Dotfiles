@@ -191,6 +191,19 @@ create_symlinks() {
         fi
     fi
     
+    # Neovim configuration
+    if ! mkdir -p "$HOME/.config/nvim"; then
+        add_failure "Failed to create Neovim config directory"
+    else
+        if [[ -f "$dotfiles_dir/vimrc" ]]; then
+            if ln -sf "$dotfiles_dir/vimrc" "$HOME/.config/nvim/init.vim"; then
+                log_success "Linked Neovim config"
+            else
+                add_failure "Failed to link Neovim config"
+            fi
+        fi
+    fi
+    
     # Hyper terminal configuration
     if [[ -f "$dotfiles_dir/hyper.js" ]]; then
         if ln -sf "$dotfiles_dir/hyper.js" "$HOME/.hyper.js"; then
