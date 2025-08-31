@@ -1,5 +1,5 @@
-source ~/dotfiles/bash/alias
-source ~/dotfiles/bash/env
+source ~/Dotfiles/bash/alias
+source ~/Dotfiles/bash/env
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
