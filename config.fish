@@ -232,3 +232,5 @@ function mo_push_diary
         echo "ℹ️  No changes to push"
     end
 end
+
+alias claude="/home/dpham/.claude/local/claude"

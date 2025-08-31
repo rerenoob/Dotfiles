@@ -24,7 +24,7 @@ alias gcm='git commit -m'
 alias gco='git checkout'
 
 # System monitoring
-alias sysinfo='top -o cpu -O +rsize -s 5 -n 20 -stats pid,command,cpu,mem,th,pstate,time'
+sysinfo() { top -o %CPU -n 1 -b | head -20; }
 
 # Speed test
 alias speedtest='curl -o /dev/null -s -w "Download speed: %{speed_download} bytes/sec\n" http://speedtest.wdc01.softlayer.com/downloads/test10.zip'
