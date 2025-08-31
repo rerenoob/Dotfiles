@@ -106,6 +106,54 @@ endif
 let g:airline_symbols.branch = ''
 let g:airline_symbols.dirty = '⚡'
 
+" Enhanced Status Line Configuration
+let g:airline_extensions = ['branch', 'fugitive', 'hunks', 'tabline', 'whitespace']
+
+" Unicode symbols
+let g:airline_symbols.readonly = ''
+let g:airline_symbols.linenr = ''
+let g:airline_symbols.maxlinenr = ''
+let g:airline_symbols.colnr = ' '
+let g:airline_symbols.paste = 'ρ'
+let g:airline_symbols.spell = 'Ꞩ'
+let g:airline_symbols.notexists = '∄'
+let g:airline_symbols.whitespace = 'Ξ'
+
+" Tabline configuration
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#formatter = 'unique_tail'
+let g:airline#extensions#tabline#show_buffers = 1
+let g:airline#extensions#tabline#show_tab_nr = 1
+let g:airline#extensions#tabline#show_tab_type = 1
+let g:airline#extensions#tabline#buffer_idx_mode = 1
+
+" Branch extension
+let g:airline#extensions#branch#enabled = 1
+let g:airline#extensions#branch#format = 2
+
+" Fugitive extension
+let g:airline#extensions#fugitive#enabled = 1
+
+" Hunks extension (GitGutter integration)
+let g:airline#extensions#hunks#enabled = 1
+let g:airline#extensions#hunks#non_zero_only = 1
+
+" Whitespace extension
+let g:airline#extensions#whitespace#enabled = 1
+let g:airline#extensions#whitespace#symbol = '!'
+
+" Custom sections for better information display
+let g:airline_section_x = airline#section#create(['filetype', ' ', 'fileencoding', ' ', '%{&fileformat}'])
+let g:airline_section_y = airline#section#create(['%{strftime("%H:%M")}', ' ', 'branch'])
+let g:airline_section_z = airline#section#create(['%3p%%', ' ', 'linenr', ':', '%3v'])
+
+" Always show status line
+set laststatus=2
+
+" Enable airline clock extension
+let g:airline#extensions#clock#enabled = 1
+let g:airline#extensions#clock#format = '%H:%M:%S'
+
 " FZF
 let g:fzf_action = {
   \ 'ctrl-t': 'tab split',
