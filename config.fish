@@ -17,7 +17,7 @@ alias notes='cl ~/Documents/Notes'
 alias gbr='git checkout --track (git branch -a | fzf)'
 alias glg='git log --graph --oneline --decorate --all'
 alias gld='git log --pretty=format:"%h %ad %s" --date=short --all'
-# glf() { git log --all --grep="$1"; }
+
 alias gs='git status'
 alias gd='git diff'
 alias ga='git add'
@@ -85,16 +85,14 @@ set -g fish_prompt_pwd_dir_length 0
 set -g theme_newline_cursor yes
 set -g theme_newline_prompt '☀️ '
 
-# virtualfish (commented out - not installed)
-# eval (python -m virtualfish)
-# eval (python -m virtualfish compat_aliases)
+
 
 # function
 
 # greeting override
 function fish_greeting
     clear
-    echo "Be like water, "$USER 
+    echo "Be like water, $USER" 
     echo ""
     set_color $fish_color_autosuggestion
     # echo "The key to immortality is first living a life worth remembering."
@@ -143,7 +141,7 @@ function note
     end
     
     cd ~/Documents/Notes
-    if git pull
+    if git pull -q
         set diary_file ~/Documents/Notes/diary/(date +"%Y-%m-%d").md
         mkdir -p (dirname $diary_file)
         vi $diary_file
@@ -185,7 +183,7 @@ function readings
     end
     
     cd ~/Documents/readings
-    if git pull
+    if git pull -q
         echo "✅ Readings updated successfully"
     else
         echo "❌ Failed to pull readings"

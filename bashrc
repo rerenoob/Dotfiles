@@ -3,8 +3,8 @@ source ~/dotfiles/bash/env
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
-# cd and lsa shortcut
+# cd and ls shortcut
 cd() {
     builtin cd "$@"
-    lsa
+    ls -la
 }

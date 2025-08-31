@@ -36,8 +36,12 @@ let g:vimwiki_list = [{'path': '~/Documents/Notes/',
                       \ 'syntax': 'markdown', 'ext': '.md'}]
 
 " Python settings for virtualenv
-let g:python_host_prog = '/usr/bin/python3'
-let g:python3_host_prog = '/usr/bin/python3'
+if executable('python3')
+    let g:python3_host_prog = exepath('python3')
+endif
+if executable('python')
+    let g:python_host_prog = exepath('python')
+endif
 
 " Key remappings
 nnoremap j gj
