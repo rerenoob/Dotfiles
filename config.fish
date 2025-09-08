@@ -231,3 +231,22 @@ function mo_push_diary
     end
 end
 
+function update-ai
+    echo "🔄 Updating Claude Code..."
+    if sudo npm install -g @anthropic-ai/claude-code
+        echo "✅ Claude Code updated successfully"
+    else
+        echo "❌ Failed to update Claude Code"
+        return 1
+    end
+    
+    echo "🔄 Updating Crush..."
+    if sudo npm install -g @charmland/crush
+        echo "✅ Crush updated successfully"
+        echo "🎉 All AI tools updated!"
+    else
+        echo "❌ Failed to update Crush"
+        return 1
+    end
+end
+
