@@ -8,3 +8,4 @@ cd() {
     builtin cd "$@"
     ls -la
 }
+export PATH="$HOME/.local/bin:$PATH"
