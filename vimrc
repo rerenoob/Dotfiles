@@ -107,7 +107,7 @@ let g:airline_symbols.branch = ''
 let g:airline_symbols.dirty = '⚡'
 
 " Enhanced Status Line Configuration
-let g:airline_extensions = ['branch', 'fugitive', 'hunks', 'tabline', 'whitespace']
+let g:airline_extensions = ['branch', 'hunks', 'tabline', 'whitespace']
 
 " Unicode symbols
 let g:airline_symbols.readonly = ''
@@ -130,9 +130,6 @@ let g:airline#extensions#tabline#buffer_idx_mode = 1
 " Branch extension
 let g:airline#extensions#branch#enabled = 1
 let g:airline#extensions#branch#format = 2
-
-" Fugitive extension
-let g:airline#extensions#fugitive#enabled = 1
 
 " Hunks extension (GitGutter integration)
 let g:airline#extensions#hunks#enabled = 1
