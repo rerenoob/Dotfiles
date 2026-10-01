@@ -1,4 +1,10 @@
-# Set default alias 
+# Homebrew: prepend so it wins over /usr/bin (path_helper always puts
+# /etc/paths.d entries after /usr/bin, which shadows Homebrew's Python/OpenSSL)
+if test -x /opt/homebrew/bin/brew
+    /opt/homebrew/bin/brew shellenv | source
+end
+
+# Set default alias
 alias python='python3'
 alias lsa='ls -la'
 alias vi='nvim'
